@@ -58,7 +58,6 @@
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_POST, 1);
-		//curl_setopt($ch, CURLOPT_CAINFO, 'D:/wamp64/bin/php/php5.6.25/cacert.pem');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -67,23 +66,15 @@
 				      'Content-Length: ' . strlen($data_string),
 				   ));
 		$response = curl_exec($ch);
-		/*$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$errors = curl_error($ch);
-		print_r(curl_getinfo($ch));
-
-		ar_dump($response);
-		var_dump($httpCode);
-		var_dump($errors);*/
 
 		$json = json_decode($response, true);
-		echo "The user is: " . end($json['Results']['output1']['value']['Values'][0]);
+		echo "You are " . end($json['Results']['output1']['value']['Values'][0]);
 
 		curl_close($ch);
+
+		echo '<audio src="' . $_POST['action'] . '.wav" controls autoplay>Your browser does not support the audio element.</audio>';
 	}
 ?>
-	<audio src="You_are_Laying.wav" controls>
-	Your browser does not support the audio element.
-	</audio>
 
 </body>
 </html>
